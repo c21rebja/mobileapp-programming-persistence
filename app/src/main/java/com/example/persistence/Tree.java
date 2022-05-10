@@ -26,7 +26,7 @@ public class Tree {
 
     @Override
     public String toString() {
-        return "Tree{" +
+        return "Tree{ " +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", height=" + height +
