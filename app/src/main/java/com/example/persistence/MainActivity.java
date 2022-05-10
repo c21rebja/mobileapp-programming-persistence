@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         database = databaseHelper.getWritableDatabase();
 
-        addTree("Kinnekulle", 306);
+        //addTree("Björk", 306); //this would add something new every time we run the app
         printTrees();
         Log.d("===", "Any trees would have been listed above.");
     }
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     cursor.getString(cursor.getColumnIndexOrThrow(DatabaseTables.Tree.COLUMN_NAME_NAME)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseTables.Tree.COLUMN_NAME_HEIGHT))
             );
-            Log.d("===", tree.getName());
+            Log.d("===", tree.toString());
         }
         cursor.close();
     }

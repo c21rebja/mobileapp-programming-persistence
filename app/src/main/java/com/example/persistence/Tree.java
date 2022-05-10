@@ -23,4 +23,13 @@ public class Tree {
     public int getHeight() {
         return height;
     }
+
+    @Override
+    public String toString() {
+        return "Tree{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", height=" + height +
+                '}';
+    }
 }
