@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        readText = findViewById(R.id.read_text_view);
+
         databaseHelper = new DatabaseHelper(this);
         database = databaseHelper.getWritableDatabase();
 
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void printTrees () {
         Cursor cursor = database.query(DatabaseTables.Tree.TABLE_NAME, null, null, null, null, null, null);
+        StringBuilder builder = new StringBuilder();
         while (cursor.moveToNext()) {
             Tree tree = new Tree(
                     cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseTables.Tree.COLUMN_NAME_ID)),
@@ -93,8 +96,10 @@ public class MainActivity extends AppCompatActivity {
                     cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseTables.Tree.COLUMN_NAME_HEIGHT))
             );
             Log.d("===", tree.toString());
-            //readText.setText(tree.toString());
+            builder.append(tree).append("\n");
+
         }
+        readText.setText(builder.toString()); //läser bara upp den senaste
         cursor.close();
     }
 
