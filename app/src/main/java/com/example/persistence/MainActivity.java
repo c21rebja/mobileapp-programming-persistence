@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private Button readButton;
     private Button writeButton;
     private Button deleteButton;
+
+    private EditText editTextId;
+    private EditText editTextName;
+    private EditText editTextHeight;
+
+    private TextView readText;
 
     private SQLiteDatabase database;
     private DatabaseHelper databaseHelper;
@@ -33,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         database = databaseHelper.getWritableDatabase();
 
+        //add references to the edit texts
+        editTextId = findViewById(R.id.id_edit);
+        editTextName = findViewById(R.id.name_edit);
+        editTextHeight = findViewById(R.id.height_edit);
+
+        //add references to the buttons
+        //add onclickhandlers
         readButton = findViewById(R.id.read_button);
         readButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +60,12 @@ public class MainActivity extends AppCompatActivity {
         writeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //add data from edit texts
+                //convert data in edittexts to ints and strings, then add that as a tree in the database
+                int idNum = Integer.parseInt(editTextId.getText().toString());
+                String nameText = editTextName.getText().toString();
+                int heightNum = Integer.parseInt(editTextHeight.getText().toString());
+
+                addTree(idNum, nameText, heightNum);
             }
         });
 
@@ -74,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
                     cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseTables.Tree.COLUMN_NAME_HEIGHT))
             );
             Log.d("===", tree.toString());
+            //readText.setText(tree.toString());
         }
         cursor.close();
     }
 
-    private void addTree (String name, int height) {
+    private void addTree (int id, String name, int height) {
         ContentValues values = new ContentValues();
+        values.put(DatabaseTables.Tree.COLUMN_NAME_ID, id);
         values.put(DatabaseTables.Tree.COLUMN_NAME_NAME, name);
         values.put(DatabaseTables.Tree.COLUMN_NAME_HEIGHT, height);
         database.insert(DatabaseTables.Tree.TABLE_NAME, null, values);
