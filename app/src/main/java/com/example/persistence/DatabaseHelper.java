@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // This method is executed only if the database version has changed, e.g. from 1 to 2
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL(DatabaseTables.SQL_DELETE_TABLE_MOUNTAIN);
-        onCreate(sqLiteDatabase);
+        sqLiteDatabase.execSQL(DatabaseTables.SQL_DELETE_TABLE_MOUNTAIN); //remove existing database
+        onCreate(sqLiteDatabase); //create a new database
     }
 }
