@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             );
             Log.d("===", tree.toString());
             builder.append(tree).append("\n");
-
         }
         readText.setText(builder.toString()); //läser bara upp den senaste
         cursor.close();
